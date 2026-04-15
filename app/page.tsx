@@ -5,6 +5,7 @@ import { DifferentialsSection } from "@/components/sections/differentials-sectio
 import { ContactForm } from "@/components/sections/contact-form"
 import { Footer } from "@/components/sections/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
+import { HowItWorksSection } from "@/components/sections/how-it-works-section"
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <DifferentialsSection />
+        <HowItWorksSection />
         <ContactForm />
       </main>
       <Footer />
