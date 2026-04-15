@@ -1,84 +1,109 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image";
 import Link from "next/link"
-import { Menu, X, Calculator } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import FacebookIcon from "../icons/FacebookIcon"
-import InstagramIcon from "../icons/WhatsappIcon"
-import WhatsappIcon from "../icons/WhatsappIcon"
+import { Menu, X } from "lucide-react"
+
 
 const navLinks = [
-  { href: "/servicos", label: "Serviços" },
-  { href: "/diferenciais", label: "Diferenciais" },
-  { href: "/contato", label: "Contato" },
+  { label: 'Serviços',       href: '#servicos'      },
+  { label: 'Diferenciais',   href: '#diferenciais'  },
+  { label: 'Como Funciona',  href: '#como-funciona' },
+  { label: 'Contato',        href: '#contato'       },
 ]
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
+  const [mobileOpen, setMobileOpen] = useState(false)
+ 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-2">
-          
-            <Calculator className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-foreground">Contábil Pro</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
+    <header
+      className="sticky top-0 z-50 border-b border-[var(--lcnv-teal-pale)] bg-[var(--lcnv-cream)]/95 backdrop-blur-md"
+    >
+      <div className="mx-auto flex h-[70px] max-w-[1200px] items-center justify-between px-6">
+ 
+        {/* ── Logo ── */}
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/icon.png"
+            alt="LCNV Contabilidade"
+            width={40}
+            height={40}
+            className="rounded-md object-contain"
+            priority
+          />
+          <div className="flex flex-col leading-tight">
+            <span
+              className="text-[1.15rem] font-bold tracking-tight text-[var(--lcnv-deep)]"
+              style={{ fontFamily: 'var(--font-playfair)' }}
+            >
+              LCNV
+            </span>
+            <span className="text-[0.6rem] font-medium uppercase tracking-[0.12em] text-[var(--lcnv-teal)]">
+              Contabilidade
+            </span>
+          </div>
+        </Link>
+ 
+        {/* ── Desktop links ── */}
+        <nav className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-[var(--lcnv-teal)] transition-colors hover:text-[var(--lcnv-deep)]"
+            >
+              {link.label}
+            </a>
+          ))}
+ 
+          <a
+            href="#contato"
+            className="rounded bg-[var(--lcnv-deep)] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--lcnv-deep-mid)]"
+          >
+            Falar com Especialista
+          </a>
+        </nav>
+ 
+        {/* ── Mobile hamburger button ── */}
+        <button
+          className="flex items-center justify-center rounded p-1 text-[var(--lcnv-deep)] md:hidden"
+          onClick={() => setMobileOpen((prev) => !prev)}
+          aria-label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
+        >
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+ 
+      {/* ── Mobile menu — desliza quando aberto ── */}
+      {mobileOpen && (
+        <div className="border-t border-[var(--lcnv-teal-pale)] bg-[var(--lcnv-cream)] px-6 pb-6 pt-4 md:hidden">
+          <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors font-medium"
+                className="text-base font-medium text-[var(--lcnv-teal)] transition-colors hover:text-[var(--lcnv-deep)]"
+                onClick={() => setMobileOpen(false)}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
-          </div>
-
-          <div className="hidden md:flex items-center gap-4">
-            <Button asChild>
-              <Link href="/contato">Fale Conosco</Link>
-            </Button>
-          </div>
-
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-foreground" />
-            ) : (
-              <Menu className="h-6 w-6 text-foreground" />
-            )}
-          </button>
-        </nav>
-
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-muted-foreground hover:text-primary transition-colors font-medium py-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Button asChild className="mt-2">
-                <Link href="/contato" onClick={() => setIsMenuOpen(false)}>
-                  Fale Conosco
-                </Link>
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
+            <a
+              href="#contato"
+              className="mt-2 rounded bg-[var(--lcnv-deep)] px-5 py-3 text-center text-sm font-medium text-white"
+              onClick={() => setMobileOpen(false)}
+            >
+              Falar com Especialista
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }
+ 
+
+
+
+
