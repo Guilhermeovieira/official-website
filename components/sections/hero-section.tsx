@@ -98,7 +98,7 @@ export function HeroSection() {
           </div>
 
           {/* Badge de certificação */}
-          <div className="absolute -bottom-4 left-6 flex items-center gap-3 rounded-lg border border-[var(--lcnv-teal-pale)] bg-white px-4 py-3 shadow-sm">
+          <div className="absolute -bottom-10 left-6 flex items-center gap-3 rounded-lg border border-[var(--lcnv-teal-pale)] bg-white px-4 py-3 shadow-sm">
             <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded bg-[var(--lcnv-teal-xpale)]">
               <Star size={16} className="text-[var(--lcnv-teal)]" />
             </span>

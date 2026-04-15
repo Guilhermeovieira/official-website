@@ -1,75 +1,125 @@
-"use client"
+import { ArrowRight, Check } from 'lucide-react'
 
-import { Users, Award, Headphones, Laptop } from "lucide-react"
+interface Differential {
+  title: string
+  description: string
+}
 
-const differentials = [
+const differentials: Differential[] = [
   {
-    icon: Users,
-    title: "Atendimento Personalizado",
-    description: "Cada cliente é único. Oferecemos um atendimento dedicado e sob medida para suas necessidades específicas."
+    title: 'Tecnologia integrada ao seu negócio',
+    description:
+      'Portal exclusivo com relatórios em tempo real, emissão de notas fiscais, envio de documentos e comunicação direta com seu contador — tudo em um só lugar, 24 horas por dia.',
   },
   {
-    icon: Award,
-    title: "Especialistas Certificados",
-    description: "Nossa equipe é formada por contadores e consultores com certificações reconhecidas no mercado."
+    title: 'Contador dedicado e atendimento personalizado',
+    description:
+      'Cada cliente tem um contador responsável que conhece profundamente o seu negócio. Sem filas, sem chatbots — comunicação direta e eficiente quando você precisar.',
   },
   {
-    icon: Headphones,
-    title: "Suporte Rápido",
-    description: "Respondemos suas dúvidas em até 24 horas. Você nunca fica sem suporte quando precisa."
+    title: 'Economia tributária comprovada',
+    description:
+      'Nossos clientes economizam em média 18% em impostos com nosso planejamento tributário estratégico. Analisamos seu negócio e encontramos o regime mais vantajoso legalmente.',
   },
   {
-    icon: Laptop,
-    title: "Tecnologia Integrada",
-    description: "Utilizamos as melhores ferramentas digitais para otimizar processos e facilitar sua gestão."
-  }
+    title: 'Segurança e compliance total',
+    description:
+      'Zero autuações fiscais em nossa carteira. Mantemos você sempre em conformidade com todas as obrigações tributárias, trabalhistas e contábeis — sem surpresas.',
+  },
 ]
 
 export function DifferentialsSection() {
   return (
-    <section id="diferenciais" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Por que escolher a{" "}
-              <span className="text-primary">Contábil Pro</span>?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Combinamos experiência, tecnologia e atendimento humanizado para oferecer 
-              o melhor serviço contábil para sua empresa.
+    <section id="diferenciais" className="bg-[var(--lcnv-cream)]">
+      <div className="mx-auto max-w-[1200px] px-6 py-20">
+
+        {/*
+         * Layout assimétrico: coluna esquerda sticky (2fr) + lista à direita (3fr)
+         * O sticky funciona porque o pai tem overflow visible e altura definida
+         * pelo conteúdo da coluna direita
+         */}
+        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-[2fr_3fr] lg:gap-20">
+
+          {/* ── Coluna esquerda — sticky ── */}
+          <div className="lg:sticky lg:top-[100px]">
+            {/* Número decorativo gigante */}
+            <p
+              className="-mb-2 text-[6rem] font-black leading-none text-[var(--lcnv-teal-pale)] lg:text-[8rem]"
+              style={{ fontFamily: 'var(--font-playfair)' }}
+              aria-hidden="true"
+            >
+              04
             </p>
-            
-            <div className="space-y-6">
-              {differentials.map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <item.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                </div>
-              ))}
+
+            <div className="mb-3 flex items-center gap-2">
+              <span className="h-[1.5px] w-5 bg-[var(--lcnv-teal)]" />
+              <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--lcnv-teal)]">
+                Diferenciais
+              </span>
             </div>
+
+            <h2
+              className="mb-3 text-[clamp(1.9rem,3.5vw,2.7rem)] font-bold leading-[1.15] tracking-tight text-[var(--lcnv-deep)]"
+              style={{ fontFamily: 'var(--font-playfair)' }}
+            >
+              Por que a LCNV<br />é diferente
+            </h2>
+
+            <p className="mb-8 text-[0.95rem] leading-[1.75] text-[var(--lcnv-teal)]">
+              Não somos apenas contadores. Somos parceiros estratégicos
+              comprometidos com o crescimento do seu negócio.
+            </p>
+
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-2 rounded bg-[var(--lcnv-deep)] px-6 py-3 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-[var(--lcnv-deep-mid)]"
+            >
+              Falar com Especialista
+              <ArrowRight size={14} />
+            </a>
           </div>
-          
-          <div className="relative">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent p-8 lg:p-12">
-              <div className="w-full h-full rounded-xl bg-card border border-border shadow-xl flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                    <Award className="h-10 w-10 text-primary" />
-                  </div>
-                  <p className="text-4xl font-bold text-primary mb-2">15+</p>
-                  <p className="text-muted-foreground">Anos de Excelência</p>
-                </div>
-              </div>
-            </div>
+
+          {/* ── Coluna direita — lista de diferenciais ── */}
+          <div>
+            {differentials.map((item, index) => (
+              <DifferentialItem
+                key={index}
+                title={item.title}
+                description={item.description}
+                isFirst={index === 0}
+              />
+            ))}
           </div>
         </div>
       </div>
     </section>
+  )
+}
+
+function DifferentialItem({
+  title,
+  description,
+  isFirst,
+}: Differential & { isFirst: boolean }) {
+  return (
+    <div
+      className={`grid grid-cols-[26px_1fr] items-start gap-4 border-b border-[var(--lcnv-teal-pale)] py-7 ${
+        isFirst ? 'border-t' : ''
+      }`}
+    >
+      {/* Check circle */}
+      <span className="mt-0.5 flex h-[22px] w-[22px] flex-shrink-0 items-center justify-center rounded-full bg-[var(--lcnv-deep)]">
+        <Check size={11} className="text-white" strokeWidth={2.5} />
+      </span>
+
+      <div>
+        <h3 className="mb-1.5 text-[0.95rem] font-semibold text-[var(--lcnv-deep)]">
+          {title}
+        </h3>
+        <p className="text-[0.84rem] leading-[1.65] text-[var(--lcnv-teal)]">
+          {description}
+        </p>
+      </div>
+    </div>
   )
 }
