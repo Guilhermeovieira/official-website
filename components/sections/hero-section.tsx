@@ -1,81 +1,126 @@
-"use client";
-
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import WhatsappIcon from "../icons/WhatsappIcon";
-
-// const WHATSAPP_MESSAGE = encodeURIComponent(
-//   "Olá, tenho interesse nos serviços de contabilidade.",
-// );
+import { ArrowRight, ChevronRight, Star } from 'lucide-react'
 
 export function HeroSection() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_URL || "";
-
   return (
-    <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-background overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+    <section className="bg-[var(--lcnv-cream)]">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-16 px-6 pb-20 pt-20 md:grid-cols-2 md:gap-20">
 
-      <div className="container mx-auto px-4 relative">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            Mais de 500 empresas atendidas
+        {/* ── Coluna esquerda ── */}
+        <div className="animate-fade-up">
+          {/* Eyebrow */}
+          <div className="mb-6 flex items-center gap-3">
+            <span className="h-[2px] w-8 bg-[var(--lcnv-teal)]" />
+            <span className="text-xs font-medium uppercase tracking-[0.18em] text-[var(--lcnv-teal)]">
+              Contabilidade Estratégica
+            </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight text-balance mb-6">
-            Simplifique sua <span className="text-primary">contabilidade</span>{" "}
-            e foque no crescimento
+          {/* Headline */}
+          <h1
+            className="mb-6 text-[clamp(2.8rem,5vw,4rem)] font-black leading-[1.05] tracking-tight text-[var(--lcnv-deep)]"
+            style={{ fontFamily: 'var(--font-playfair)' }}
+          >
+            Sua empresa<br />
+            em ordem,<br />
+            seus{' '}
+            <em className="not-italic text-[var(--lcnv-teal)]">lucros</em>
+            <br />
+            em foco.
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty">
-            Oferecemos soluções contábeis completas para sua empresa crescer com
-            segurança. Atendimento personalizado, tecnologia moderna e
-            especialistas certificados.
+          {/* Descrição */}
+          <p className="mb-10 max-w-[420px] text-base leading-[1.8] text-[var(--lcnv-teal-light)] md:text-[var(--lcnv-teal)]">
+            Do MEI às empresas de médio porte — contabilidade completa com
+            tecnologia integrada, atendimento personalizado e expertise que
+            transforma números em decisões.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" asChild className="w-full sm:w-auto">
-              <Link href="/contato">
-                Fale Conosco
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="w-full sm:w-auto border-primary/20 hover:bg-primary"
+          {/* CTAs */}
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="#contato"
+              className="inline-flex items-center gap-2 rounded bg-[var(--lcnv-deep)] px-7 py-3 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-[var(--lcnv-deep-mid)]"
             >
-              <Link
-                href={whatsappNumber}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WhatsappIcon />
-                WhatsApp
-              </Link>
-            </Button>
+              Começar Agora
+              <ArrowRight size={15} />
+            </a>
+            <a
+              href="#servicos"
+              className="inline-flex items-center gap-2 border-b border-[var(--lcnv-teal)] pb-0.5 text-sm font-medium text-[var(--lcnv-teal)] transition-all hover:gap-3"
+            >
+              Ver Serviços
+              <ChevronRight size={14} />
+            </a>
           </div>
         </div>
 
-        <div className="mt-16 md:mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
-          {[
-            { value: "500+", label: "Clientes ativos" },
-            { value: "15+", label: "Anos de experiência" },
-            { value: "98%", label: "Satisfação" },
-            { value: "24h", label: "Suporte" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary">
-                {stat.value}
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
+        {/* ── Coluna direita — card de stats ── */}
+        <div className="relative mt-6 md:mt-0">
+          {/* Badge CRC */}
+          <span className="absolute -top-3 right-0 z-10 rounded bg-[var(--lcnv-teal)] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.1em] text-white">
+            CRC Ativo
+          </span>
+
+          {/* Card principal */}
+          <div className="relative overflow-hidden rounded-xl bg-[var(--lcnv-deep)] p-8 text-white">
+            {/* Círculo decorativo */}
+            <span className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-[var(--lcnv-teal)]/10" />
+
+            <p className="mb-1 text-[0.65rem] uppercase tracking-[0.14em] text-white/40">
+              Resultados para nossos clientes
+            </p>
+            <p
+              className="mb-8 text-xl font-bold leading-snug"
+              style={{ fontFamily: 'var(--font-playfair)' }}
+            >
+              Contabilidade que<br />impulsiona negócios.
+            </p>
+
+            {/* Grid de métricas */}
+            <div className="grid grid-cols-2 gap-5">
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <p
+                    className="text-[2.2rem] font-bold leading-none text-[var(--lcnv-teal-pale)]"
+                    style={{ fontFamily: 'var(--font-playfair)' }}
+                  >
+                    {s.value}
+                    {s.suffix && (
+                      <span className="text-lg">{s.suffix}</span>
+                    )}
+                  </p>
+                  <p className="mt-1 text-[0.65rem] uppercase tracking-[0.06em] text-white/40">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Badge de certificação */}
+          <div className="absolute -bottom-4 left-6 flex items-center gap-3 rounded-lg border border-[var(--lcnv-teal-pale)] bg-white px-4 py-3 shadow-sm">
+            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded bg-[var(--lcnv-teal-xpale)]">
+              <Star size={16} className="text-[var(--lcnv-teal)]" />
+            </span>
+            <div>
+              <p className="text-[0.82rem] font-semibold text-[var(--lcnv-deep)]">
+                Empresa certificada
+              </p>
+              <p className="text-[0.7rem] text-[var(--lcnv-teal)]">
+                Conselho Regional de Contabilidade
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
+
+/* ── dados das métricas — edite aqui conforme necessário ── */
+const stats = [
+  { value: '+15', suffix: 'anos', label: 'de experiência'      },
+  { value: '500', suffix: '+',    label: 'empresas atendidas'  },
+  { value: '98',  suffix: '%',    label: 'satisfação'          },
+  { value: '0',   suffix: null,   label: 'infrações fiscais'   },
+]
