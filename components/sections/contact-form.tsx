@@ -1,231 +1,293 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Send, CheckCircle, AlertCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { Phone, Mail, MapPin } from 'lucide-react'
+import { useState } from 'react'
 
-type FormStatus = "idle" | "loading" | "success" | "error"
+/* ── Schema de validação ── */
+const schema = z.object({
+  name:    z.string().min(2,  'Informe seu nome completo'),
+  company: z.string().min(1,  'Informe o nome da empresa'),
+  email:   z.string().email(  'E-mail inválido'),
+  phone:   z.string().min(10, 'Telefone inválido'),
+  service: z.string().min(1,  'Selecione um serviço'),
+  message: z.string().min(10, 'Mensagem muito curta'),
+})
 
-interface FormData {
-  nome: string
-  email: string
-  telefone: string
-  mensagem: string
-}
+type FormData = z.infer<typeof schema>
+
+const services = [
+  'Abertura de Empresa',
+  'Contabilidade Mensal',
+  'Planejamento Tributário',
+  'Folha de Pagamento',
+  'Obrigações Acessórias',
+  'Consultoria Empresarial',
+]
+
+const contactInfo = [
+  {
+    icon: Phone,
+    label: 'WhatsApp',
+    value: '(11) 99999-0000',
+    href: 'https://wa.me/5511999990000',
+  },
+  {
+    icon: Mail,
+    label: 'E-mail',
+    value: 'contato@lcnv.com.br',
+    href: 'mailto:contato@lcnv.com.br',
+  },
+  {
+    icon: MapPin,
+    label: 'Localização',
+    value: 'São Paulo, SP · Atendimento remoto em todo o Brasil',
+    href: null,
+  },
+]
 
 export function ContactForm() {
-  const [formData, setFormData] = useState<FormData>({
-    nome: "",
-    email: "",
-    telefone: "",
-    mensagem: ""
-  })
-  const [status, setStatus] = useState<FormStatus>("idle")
-  const [errors, setErrors] = useState<Partial<FormData>>({})
+  const [submitted, setSubmitted] = useState(false)
 
-  const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {}
-    
-    if (!formData.nome.trim()) {
-      newErrors.nome = "Nome é obrigatório"
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = "E-mail é obrigatório"
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "E-mail inválido"
-    }
-    
-    if (!formData.telefone.trim()) {
-      newErrors.telefone = "Telefone é obrigatório"
-    }
-    
-    if (!formData.mensagem.trim()) {
-      newErrors.mensagem = "Mensagem é obrigatória"
-    }
-    
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!validateForm()) return
-    
-    setStatus("loading")
-    
-    // Simula envio de e-mail
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    // Simula sucesso (90% de chance) ou erro (10% de chance)
-    if (Math.random() > 0.1) {
-      setStatus("success")
-      setFormData({ nome: "", email: "", telefone: "", mensagem: "" })
-    } else {
-      setStatus("error")
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    if (errors[name as keyof FormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }))
-    }
-  }
-
-  if (status === "success") {
-    return (
-      <section id="contato" className="py-16 md:py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <Card className="max-w-lg mx-auto text-center">
-            <CardContent className="pt-12 pb-8">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3">Mensagem Enviada!</h3>
-              <p className="text-muted-foreground mb-6">
-                Obrigado pelo contato. Retornaremos em breve.
-              </p>
-              <Button onClick={() => setStatus("idle")}>
-                Enviar Nova Mensagem
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-    )
+  /*
+   * onSubmit — substitua pelo seu endpoint real (ex: API Route, Resend, Formspree)
+   * Por ora simula um envio de 1.5s e exibe mensagem de sucesso
+   */
+  async function onSubmit(data: FormData) {
+    await new Promise((r) => setTimeout(r, 1500))
+    console.log('Form data:', data)
+    setSubmitted(true)
+    reset()
   }
 
   return (
-    <section id="contato" className="py-16 md:py-24 bg-secondary/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Entre em Contato
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Preencha o formulário abaixo e nossa equipe entrará em contato com você
-          </p>
-        </div>
-        
-        <Card className="max-w-lg mx-auto">
-          <CardHeader>
-            <CardTitle>Solicite um Orçamento</CardTitle>
-            <CardDescription>
-              Responderemos sua mensagem em até 24 horas úteis
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {status === "error" && (
-              <div className="flex items-center gap-3 p-4 mb-6 rounded-lg bg-destructive/10 text-destructive">
-                <AlertCircle className="h-5 w-5 flex-shrink-0" />
-                <p className="text-sm">Ocorreu um erro. Tente novamente.</p>
+    <section id="contato" className="bg-white">
+      <div className="mx-auto max-w-[1200px] px-6 py-20">
+
+        <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2 lg:gap-20">
+
+          {/* ── Informações de contato ── */}
+          <div>
+            <div className="mb-3 flex items-center gap-2">
+              <span className="h-[1.5px] w-5 bg-[var(--lcnv-teal)]" />
+              <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--lcnv-teal)]">
+                Contato
+              </span>
+            </div>
+            <h2
+              className="mb-4 text-[clamp(1.9rem,3.5vw,2.7rem)] font-bold leading-[1.15] tracking-tight text-[var(--lcnv-deep)]"
+              style={{ fontFamily: 'var(--font-playfair)' }}
+            >
+              Fale com um<br />contador agora
+            </h2>
+            <p className="mb-10 text-[0.95rem] leading-[1.75] text-[var(--lcnv-teal)]">
+              Tire suas dúvidas, solicite um diagnóstico gratuito ou descubra
+              como podemos ajudar sua empresa a crescer com segurança.
+            </p>
+
+            <div className="flex flex-col gap-5">
+              {contactInfo.map((item) => (
+                <div key={item.label} className="flex items-start gap-3">
+                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-[var(--lcnv-teal-xpale)]">
+                    <item.icon size={18} className="text-[var(--lcnv-teal)]" strokeWidth={1.8} />
+                  </span>
+                  <div>
+                    <p className="text-[0.68rem] font-medium uppercase tracking-[0.08em] text-[var(--lcnv-teal)]">
+                      {item.label}
+                    </p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="text-[0.92rem] font-medium text-[var(--lcnv-deep)] hover:text-[var(--lcnv-teal)]"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-[0.92rem] font-medium text-[var(--lcnv-deep)]">
+                        {item.value}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Box de resposta rápida */}
+            <div className="mt-8 rounded-lg border border-[var(--lcnv-teal-pale)] bg-[var(--lcnv-teal-xpale)] px-5 py-4">
+              <p className="mb-1 text-[0.88rem] font-semibold text-[var(--lcnv-deep)]">
+                Resposta rápida
+              </p>
+              <p className="text-[0.8rem] leading-[1.6] text-[var(--lcnv-teal)]">
+                Nosso time responde em até 2 horas no horário comercial.
+                Urgências via WhatsApp.
+              </p>
+            </div>
+          </div>
+
+          {/* ── Card de formulário ── */}
+          <div className="rounded-xl border border-[var(--lcnv-teal-pale)] bg-white p-8 shadow-sm">
+            {submitted ? (
+              /* Feedback de sucesso */
+              <div className="flex flex-col items-center py-12 text-center">
+                <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--lcnv-teal-xpale)]">
+                  <Mail size={24} className="text-[var(--lcnv-teal)]" />
+                </span>
+                <h3
+                  className="mb-2 text-xl font-bold text-[var(--lcnv-deep)]"
+                  style={{ fontFamily: 'var(--font-playfair)' }}
+                >
+                  Mensagem enviada!
+                </h3>
+                <p className="mb-6 text-sm text-[var(--lcnv-teal)]">
+                  Retornaremos em breve. Obrigado pelo contato.
+                </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="text-sm font-medium text-[var(--lcnv-teal)] underline"
+                >
+                  Enviar outra mensagem
+                </button>
               </div>
+            ) : (
+              <>
+                <h3
+                  className="mb-1 text-[1.1rem] font-bold text-[var(--lcnv-deep)]"
+                  style={{ fontFamily: 'var(--font-playfair)' }}
+                >
+                  Envie sua mensagem
+                </h3>
+                <p className="mb-6 text-[0.8rem] text-[var(--lcnv-teal)]">
+                  Preencha o formulário e retornaremos em breve.
+                </p>
+
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                  {/* Nome + Empresa */}
+                  <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Field label="Nome" error={errors.name?.message}>
+                      <input
+                        {...register('name')}
+                        placeholder="Seu nome completo"
+                        className={inputCls(!!errors.name)}
+                      />
+                    </Field>
+                    <Field label="Empresa" error={errors.company?.message}>
+                      <input
+                        {...register('company')}
+                        placeholder="Nome da empresa"
+                        className={inputCls(!!errors.company)}
+                      />
+                    </Field>
+                  </div>
+
+                  {/* E-mail + Telefone */}
+                  <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Field label="E-mail" error={errors.email?.message}>
+                      <input
+                        {...register('email')}
+                        type="email"
+                        placeholder="seu@email.com"
+                        className={inputCls(!!errors.email)}
+                      />
+                    </Field>
+                    <Field label="Telefone" error={errors.phone?.message}>
+                      <input
+                        {...register('phone')}
+                        type="tel"
+                        placeholder="(11) 9 0000-0000"
+                        className={inputCls(!!errors.phone)}
+                      />
+                    </Field>
+                  </div>
+
+                  {/* Serviço */}
+                  <Field
+                    label="Serviço de interesse"
+                    error={errors.service?.message}
+                    className="mb-4"
+                  >
+                    <select
+                      {...register('service')}
+                      className={inputCls(!!errors.service)}
+                    >
+                      <option value="">Selecione um serviço...</option>
+                      {services.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </Field>
+
+                  {/* Mensagem */}
+                  <Field
+                    label="Mensagem"
+                    error={errors.message?.message}
+                    className="mb-6"
+                  >
+                    <textarea
+                      {...register('message')}
+                      rows={4}
+                      placeholder="Conte-nos um pouco sobre seu negócio e como podemos ajudar..."
+                      className={inputCls(!!errors.message)}
+                    />
+                  </Field>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full rounded bg-[var(--lcnv-deep)] py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--lcnv-deep-mid)] disabled:opacity-60"
+                  >
+                    {isSubmitting ? 'Enviando...' : 'Enviar Mensagem →'}
+                  </button>
+                </form>
+              </>
             )}
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="nome" className="block text-sm font-medium text-foreground mb-1.5">
-                  Nome completo
-                </label>
-                <Input
-                  id="nome"
-                  name="nome"
-                  placeholder="Seu nome"
-                  value={formData.nome}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.nome}
-                  aria-describedby={errors.nome ? "nome-error" : undefined}
-                />
-                {errors.nome && (
-                  <p id="nome-error" className="text-sm text-destructive mt-1">{errors.nome}</p>
-                )}
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">
-                  E-mail
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                />
-                {errors.email && (
-                  <p id="email-error" className="text-sm text-destructive mt-1">{errors.email}</p>
-                )}
-              </div>
-              
-              <div>
-                <label htmlFor="telefone" className="block text-sm font-medium text-foreground mb-1.5">
-                  Telefone
-                </label>
-                <Input
-                  id="telefone"
-                  name="telefone"
-                  type="tel"
-                  placeholder="(11) 99999-9999"
-                  value={formData.telefone}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.telefone}
-                  aria-describedby={errors.telefone ? "telefone-error" : undefined}
-                />
-                {errors.telefone && (
-                  <p id="telefone-error" className="text-sm text-destructive mt-1">{errors.telefone}</p>
-                )}
-              </div>
-              
-              <div>
-                <label htmlFor="mensagem" className="block text-sm font-medium text-foreground mb-1.5">
-                  Mensagem
-                </label>
-                <Textarea
-                  id="mensagem"
-                  name="mensagem"
-                  placeholder="Como podemos ajudar?"
-                  rows={4}
-                  value={formData.mensagem}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.mensagem}
-                  aria-describedby={errors.mensagem ? "mensagem-error" : undefined}
-                />
-                {errors.mensagem && (
-                  <p id="mensagem-error" className="text-sm text-destructive mt-1">{errors.mensagem}</p>
-                )}
-              </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full" 
-                size="lg"
-                disabled={status === "loading"}
-              >
-                {status === "loading" ? (
-                  <>
-                    <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    Enviando...
-                  </>
-                ) : (
-                  <>
-                    Enviar Mensagem
-                    <Send className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </section>
+  )
+}
+
+/* ── helpers ── */
+
+function inputCls(hasError: boolean) {
+  return [
+    'w-full rounded border px-3 py-2.5 text-[0.88rem] outline-none transition-colors',
+    'bg-[var(--lcnv-cream)] text-[var(--lcnv-deep)] placeholder:text-[var(--lcnv-teal-pale)]',
+    hasError
+      ? 'border-red-400 focus:border-red-500'
+      : 'border-[var(--lcnv-teal-pale)] focus:border-[var(--lcnv-teal)]',
+  ].join(' ')
+}
+
+function Field({
+  label,
+  error,
+  children,
+  className = '',
+}: {
+  label: string
+  error?: string
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <div className={className}>
+      <label className="mb-1.5 block text-[0.7rem] font-medium uppercase tracking-[0.06em] text-[var(--lcnv-deep)]">
+        {label}
+      </label>
+      {children}
+      {error && (
+        <p className="mt-1 text-[0.72rem] text-red-500">{error}</p>
+      )}
+    </div>
   )
 }
