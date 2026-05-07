@@ -26,22 +26,12 @@ export function Navbar() {
           <Image
             src="/icon.png"
             alt="LCNV Contabilidade"
-            width={40}
-            height={40}
+            width={60}
+            height={60}
             className="rounded-md object-contain"
             priority
           />
-          <div className="flex flex-col leading-tight">
-            <span
-              className="text-[1.15rem] font-bold tracking-tight text-[var(--lcnv-deep)]"
-              style={{ fontFamily: 'var(--font-playfair)' }}
-            >
-              LCNV
-            </span>
-            <span className="text-[0.6rem] font-medium uppercase tracking-[0.12em] text-[var(--lcnv-teal)]">
-              Contabilidade
-            </span>
-          </div>
+          
         </Link>
 
         {/* ── Desktop links ── */}
