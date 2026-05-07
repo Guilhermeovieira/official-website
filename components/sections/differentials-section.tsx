@@ -43,16 +43,16 @@ export function DifferentialsSection() {
           {/* ── Coluna esquerda — sticky ── */}
           <div className="lg:sticky lg:top-[100px]">
             {/* Número decorativo gigante */}
-            <p
+            {/* <p
               className="-mb-2 text-[6rem] font-black leading-none text-[var(--lcnv-teal-pale)] lg:text-[8rem]"
               style={{ fontFamily: 'var(--font-playfair)' }}
               aria-hidden="true"
             >
               04
-            </p>
+            </p> */}
 
             <div className="mb-3 flex items-center gap-2">
-              <span className="h-[1.5px] w-5 bg-[var(--lcnv-teal)]" />
+              <span className="h-[1.5px] w-5 bg-(--lcnv-teal)" />
               <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[var(--lcnv-teal)]">
                 Diferenciais
               </span>

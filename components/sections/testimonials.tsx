@@ -44,26 +44,47 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      {testimonials.map((e) => (
-        <div
-          key={e.id}
-          className="flex flex-col border rounded-xl border-(--lcnv-teal-pale) px-5 py-4 h-full w-full"
-        >
-          <div className="flex gap-0.5">
-            {Array.from({ length: 5 }, (_, i) => i + 1).map((position) => {
-              const type = getStarType(e.rating, position);
-              return <span key={position}>{type}</span>;
-            })}
+    <section>
+      <div className="mx-auto max-w-300 px-6 py-20">
+        {/* Cabeçalho */}
+        <div className="mb-14">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="h-[1.5px] w-5 bg-(--lcnv-teal)" />
+            <span className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-(--lcnv-teal)">
+              Nossas avaliações
+            </span>
           </div>
-          <div className="flex gap-2">
-            <span className="bg-red-500 rounded-full p-2">{e.author.charAt(0)}</span>
-            <p className="font-extrabold">{e.author}</p>
-          </div>
-          <span>{e.text}</span>
+          <h2
+            className="mb-3 text-[clamp(1.9rem,3.5vw,2.7rem)] font-bold leading-[1.15] tracking-tight text-[var(--lcnv-deep)]"
+            style={{ fontFamily: "var(--font-playfair)" }}
+          >
+            O que nossos clientes dizem sobre nós
+          </h2>
         </div>
-      ))}
-    </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((e) => (
+            <div
+              key={e.id}
+              className="flex flex-col border rounded-xl border-(--lcnv-teal-pale) px-5 py-4 w-full"
+            >
+              <div className="flex gap-0.5 py-3">
+                {Array.from({ length: 5 }, (_, i) => i + 1).map((position) => {
+                  const type = getStarType(e.rating, position);
+                  return <span key={position}>{type}</span>;
+                })}
+              </div>
+              <div className="flex items-center gap-2 py-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-(--lcnv-deep) text-sm font-semibold text-white">
+                  {e.author.charAt(0)}
+                </span>
+                <p className="font-extrabold">{e.author}</p>
+              </div>
+              <span className="text-sm leading-relaxed text-(--lcnv-teal)">{e.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>{" "}
+    </section>
   );
 };
 
