@@ -7,6 +7,7 @@ import { Footer } from "@/components/sections/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { HowItWorksSection } from "@/components/sections/how-it-works-section"
 import Testimonials from "@/components/sections/testimonials"
+import MapSection from "@/components/sections/map-section"
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Testimonials />
         <HowItWorksSection />
         <ContactForm />
+        <MapSection />
       </main>
       <Footer />
       <WhatsAppButton />

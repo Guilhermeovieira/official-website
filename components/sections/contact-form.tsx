@@ -31,8 +31,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'WhatsApp',
-    value: '(11) 99999-0000',
-    href: 'https://wa.me/5511999990000',
+    value: '(11) 94933-1825',
+    href: 'https://wa.me/5511949331825',
   },
   {
     icon: Mail,
@@ -43,7 +43,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: 'Localização',
-    value: 'São Paulo, SP · Atendimento remoto em todo o Brasil',
+    value: 'R. São João Clímaco, 656A, São Paulo, SP · Atendimento remoto em todo o Brasil',
     href: null,
   },
 ]

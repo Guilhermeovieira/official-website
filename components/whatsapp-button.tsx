@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react'
 
 /* Número do WhatsApp — troque pelo número real da LCNV */
-const WA_NUMBER = '5511999990000'
+const WA_NUMBER = '5511916271334'
 const WA_MESSAGE = encodeURIComponent(
-  'Olá! Gostaria de saber mais sobre os serviços de contabilidade da LCNV.'
+  'Olá! Gostaria de saber mais sobre os serviços de contabilidade.'
 )
 
 export function WhatsAppButton() {
