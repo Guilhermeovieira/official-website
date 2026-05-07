@@ -36,7 +36,7 @@ const steps: Step[] = [
 export function HowItWorksSection() {
   return (
     <section id="como-funciona" className="bg-[var(--lcnv-deep)]">
-      <div className="mx-auto max-w-[1200px] px-6 py-20">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
 
         {/* Cabeçalho */}
         <div className="mb-14">

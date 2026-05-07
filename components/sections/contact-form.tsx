@@ -71,7 +71,7 @@ export function ContactForm() {
 
   return (
     <section id="contato" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-6 py-20">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
 
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2 lg:gap-20">
 

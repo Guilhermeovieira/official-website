@@ -44,8 +44,8 @@ const Testimonials = () => {
   };
 
   return (
-    <section>
-      <div className="mx-auto max-w-300 px-6 py-20">
+    <section className="bg-white">
+      <div className="mx-auto max-w-300 px-6 py-14 md:py-20">
         {/* Cabeçalho */}
         <div className="mb-4">
           <div className="mb-3 flex items-center gap-2">
@@ -64,7 +64,7 @@ const Testimonials = () => {
 
         {/* Lista de Cards */}
       </div>
-        <div className="group overflow-hidden pb-20">
+        <div className="group overflow-hidden pb-20 carousel-fade">
           <div  className="flex gap-4 [animation:var(--animate-marquee)] group-hover:paused">
             {/* Cards */}
             {[...testimonials, ...testimonials].map((e, index) => (

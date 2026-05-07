@@ -31,7 +31,7 @@ const differentials: Differential[] = [
 export function DifferentialsSection() {
   return (
     <section id="diferenciais" className="bg-[var(--lcnv-cream)]">
-      <div className="mx-auto max-w-[1200px] px-6 py-20">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
 
         {/*
          * Layout assimétrico: coluna esquerda sticky (2fr) + lista à direita (3fr)

@@ -63,7 +63,7 @@ const services: Service[] = [
 export function ServicesSection() {
   return (
     <section id="servicos" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-6 py-20">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
 
         {/* Cabeçalho */}
         <div className="mb-14">

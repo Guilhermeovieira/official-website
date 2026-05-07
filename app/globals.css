@@ -167,6 +167,16 @@
   .animate-wa-enter {
     animation: waEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   }
+
+  .carousel-fade {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
 }
 
 @keyframes fadeUp {
