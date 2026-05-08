@@ -1,45 +1,17 @@
-import { ArrowRight, Check } from 'lucide-react'
-
-interface Differential {
-  title: string
-  description: string
-}
-
-const differentials: Differential[] = [
-  {
-    title: 'Tecnologia integrada ao seu negócio',
-    description:
-      'Portal exclusivo com relatórios em tempo real, emissão de notas fiscais, envio de documentos e comunicação direta com seu contador — tudo em um só lugar, 24 horas por dia.',
-  },
-  {
-    title: 'Contador dedicado e atendimento personalizado',
-    description:
-      'Cada cliente tem um contador responsável que conhece profundamente o seu negócio. Sem filas, sem chatbots — comunicação direta e eficiente quando você precisar.',
-  },
-  {
-    title: 'Economia tributária comprovada',
-    description:
-      'Nossos clientes economizam em média 18% em impostos com nosso planejamento tributário estratégico. Analisamos seu negócio e encontramos o regime mais vantajoso legalmente.',
-  },
-  {
-    title: 'Segurança e compliance total',
-    description:
-      'Zero autuações fiscais em nossa carteira. Mantemos você sempre em conformidade com todas as obrigações tributárias, trabalhistas e contábeis — sem surpresas.',
-  },
-]
+import { ArrowRight, Check } from "lucide-react";
+import { Differential } from "@/types";
+import { differentials } from "@/lib/companyInfo";
 
 export function DifferentialsSection() {
   return (
     <section id="diferenciais" className="bg-[var(--lcnv-cream)]">
       <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
-
         {/*
          * Layout assimétrico: coluna esquerda sticky (2fr) + lista à direita (3fr)
          * O sticky funciona porque o pai tem overflow visible e altura definida
          * pelo conteúdo da coluna direita
          */}
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-[2fr_3fr] lg:gap-20">
-
           {/* ── Coluna esquerda — sticky ── */}
           <div className="lg:sticky lg:top-[100px]">
             {/* Número decorativo gigante */}
@@ -60,9 +32,10 @@ export function DifferentialsSection() {
 
             <h2
               className="mb-3 text-[clamp(1.9rem,3.5vw,2.7rem)] font-bold leading-[1.15] tracking-tight text-[var(--lcnv-deep)]"
-              style={{ fontFamily: 'var(--font-playfair)' }}
+              style={{ fontFamily: "var(--font-playfair)" }}
             >
-              Por que a LCNV<br />é diferente
+              Por que a LCNV
+              <br />é diferente
             </h2>
 
             <p className="mb-8 text-[0.95rem] leading-[1.75] text-[var(--lcnv-teal)]">
@@ -93,7 +66,7 @@ export function DifferentialsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function DifferentialItem({
@@ -104,7 +77,7 @@ function DifferentialItem({
   return (
     <div
       className={`grid grid-cols-[26px_1fr] items-start gap-4 border-b border-[var(--lcnv-teal-pale)] py-7 ${
-        isFirst ? 'border-t' : ''
+        isFirst ? "border-t" : ""
       }`}
     >
       {/* Check circle */}
@@ -121,5 +94,5 @@ function DifferentialItem({
         </p>
       </div>
     </div>
-  )
+  );
 }

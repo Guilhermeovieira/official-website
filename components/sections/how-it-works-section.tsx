@@ -1,37 +1,6 @@
 import { ArrowRight } from 'lucide-react'
-
-interface Step {
-  num: string
-  title: string
-  description: string
-}
-
-const steps: Step[] = [
-  {
-    num: '01',
-    title: 'Diagnóstico gratuito',
-    description:
-      'Conversamos sobre seu negócio, entendemos suas necessidades e identificamos oportunidades de economia fiscal.',
-  },
-  {
-    num: '02',
-    title: 'Proposta personalizada',
-    description:
-      'Apresentamos um plano sob medida com serviços, prazos e investimento claro. Sem letras miúdas.',
-  },
-  {
-    num: '03',
-    title: 'Migração e onboarding',
-    description:
-      'Nossa equipe cuida de toda a transição, transferência de documentos e configuração do portal digital.',
-  },
-  {
-    num: '04',
-    title: 'Operação contínua',
-    description:
-      'Sua contabilidade rodando com relatórios mensais, entregas no prazo e suporte sempre disponível.',
-  },
-]
+import { steps } from "@/lib/companyInfo"
+import type { Step } from '@/types'
 
 export function HowItWorksSection() {
   return (

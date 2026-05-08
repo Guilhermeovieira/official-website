@@ -1,80 +1,49 @@
-'use client'
+"use client";
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Phone, Mail, MapPin } from 'lucide-react'
-import { useState } from 'react'
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Mail } from "lucide-react";
+import { useState } from "react";
+import { services, contactInfo } from "@/lib/companyInfo";
 
 /* ── Schema de validação ── */
 const schema = z.object({
-  name:    z.string().min(2,  'Informe seu nome completo'),
-  company: z.string().min(1,  'Informe o nome da empresa'),
-  email:   z.string().email(  'E-mail inválido'),
-  phone:   z.string().min(10, 'Telefone inválido'),
-  service: z.string().min(1,  'Selecione um serviço'),
-  message: z.string().min(10, 'Mensagem muito curta'),
-})
+  name: z.string().min(2, "Informe seu nome completo"),
+  company: z.string().min(1, "Informe o nome da empresa"),
+  email: z.string().email("E-mail inválido"),
+  phone: z.string().min(10, "Telefone inválido"),
+  service: z.string().min(1, "Selecione um serviço"),
+  message: z.string().min(10, "Mensagem muito curta"),
+});
 
-type FormData = z.infer<typeof schema>
-
-const services = [
-  'Abertura de Empresa',
-  'Contabilidade Mensal',
-  'Planejamento Tributário',
-  'Folha de Pagamento',
-  'Obrigações Acessórias',
-  'Consultoria Empresarial',
-]
-
-const contactInfo = [
-  {
-    icon: Phone,
-    label: 'WhatsApp',
-    value: '(11) 94933-1825',
-    href: 'https://wa.me/5511949331825',
-  },
-  {
-    icon: Mail,
-    label: 'E-mail',
-    value: 'contato@lcnv.com.br',
-    href: 'mailto:contato@lcnv.com.br',
-  },
-  {
-    icon: MapPin,
-    label: 'Localização',
-    value: 'R. São João Clímaco, 656A, São Paulo, SP · Atendimento remoto em todo o Brasil',
-    href: null,
-  },
-]
+type FormData = z.infer<typeof schema>;
 
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   /*
    * onSubmit — substitua pelo seu endpoint real (ex: API Route, Resend, Formspree)
    * Por ora simula um envio de 1.5s e exibe mensagem de sucesso
    */
   async function onSubmit(data: FormData) {
-    await new Promise((r) => setTimeout(r, 1500))
-    console.log('Form data:', data)
-    setSubmitted(true)
-    reset()
+    await new Promise((r) => setTimeout(r, 1500));
+    console.log("Form data:", data);
+    setSubmitted(true);
+    reset();
   }
 
   return (
     <section id="contato" className="bg-white">
       <div className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
-
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2 lg:gap-20">
-
           {/* ── Informações de contato ── */}
           <div>
             <div className="mb-3 flex items-center gap-2">
@@ -85,9 +54,11 @@ export function ContactForm() {
             </div>
             <h2
               className="mb-4 text-[clamp(1.9rem,3.5vw,2.7rem)] font-bold leading-[1.15] tracking-tight text-[var(--lcnv-deep)]"
-              style={{ fontFamily: 'var(--font-playfair)' }}
+              style={{ fontFamily: "var(--font-playfair)" }}
             >
-              Fale com um<br />contador agora
+              Fale com um
+              <br />
+              contador agora
             </h2>
             <p className="mb-10 text-[0.95rem] leading-[1.75] text-[var(--lcnv-teal)]">
               Tire suas dúvidas, solicite um diagnóstico gratuito ou descubra
@@ -98,7 +69,11 @@ export function ContactForm() {
               {contactInfo.map((item) => (
                 <div key={item.label} className="flex items-start gap-3">
                   <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-[var(--lcnv-teal-xpale)]">
-                    <item.icon size={18} className="text-[var(--lcnv-teal)]" strokeWidth={1.8} />
+                    <item.icon
+                      size={18}
+                      className="text-[var(--lcnv-teal)]"
+                      strokeWidth={1.8}
+                    />
                   </span>
                   <div>
                     <p className="text-[0.68rem] font-medium uppercase tracking-[0.08em] text-[var(--lcnv-teal)]">
@@ -143,7 +118,7 @@ export function ContactForm() {
                 </span>
                 <h3
                   className="mb-2 text-xl font-bold text-[var(--lcnv-deep)]"
-                  style={{ fontFamily: 'var(--font-playfair)' }}
+                  style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   Mensagem enviada!
                 </h3>
@@ -161,7 +136,7 @@ export function ContactForm() {
               <>
                 <h3
                   className="mb-1 text-[1.1rem] font-bold text-[var(--lcnv-deep)]"
-                  style={{ fontFamily: 'var(--font-playfair)' }}
+                  style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   Envie sua mensagem
                 </h3>
@@ -174,14 +149,14 @@ export function ContactForm() {
                   <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <Field label="Nome" error={errors.name?.message}>
                       <input
-                        {...register('name')}
+                        {...register("name")}
                         placeholder="Seu nome completo"
                         className={inputCls(!!errors.name)}
                       />
                     </Field>
                     <Field label="Empresa" error={errors.company?.message}>
                       <input
-                        {...register('company')}
+                        {...register("company")}
                         placeholder="Nome da empresa"
                         className={inputCls(!!errors.company)}
                       />
@@ -192,7 +167,7 @@ export function ContactForm() {
                   <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <Field label="E-mail" error={errors.email?.message}>
                       <input
-                        {...register('email')}
+                        {...register("email")}
                         type="email"
                         placeholder="seu@email.com"
                         className={inputCls(!!errors.email)}
@@ -200,7 +175,7 @@ export function ContactForm() {
                     </Field>
                     <Field label="Telefone" error={errors.phone?.message}>
                       <input
-                        {...register('phone')}
+                        {...register("phone")}
                         type="tel"
                         placeholder="(11) 9 0000-0000"
                         className={inputCls(!!errors.phone)}
@@ -215,12 +190,14 @@ export function ContactForm() {
                     className="mb-4"
                   >
                     <select
-                      {...register('service')}
+                      {...register("service")}
                       className={inputCls(!!errors.service)}
                     >
                       <option value="">Selecione um serviço...</option>
                       {services.map((s) => (
-                        <option key={s} value={s}>{s}</option>
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
                       ))}
                     </select>
                   </Field>
@@ -232,7 +209,7 @@ export function ContactForm() {
                     className="mb-6"
                   >
                     <textarea
-                      {...register('message')}
+                      {...register("message")}
                       rows={4}
                       placeholder="Conte-nos um pouco sobre seu negócio e como podemos ajudar..."
                       className={inputCls(!!errors.message)}
@@ -244,7 +221,7 @@ export function ContactForm() {
                     disabled={isSubmitting}
                     className="w-full rounded bg-[var(--lcnv-deep)] py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--lcnv-deep-mid)] disabled:opacity-60"
                   >
-                    {isSubmitting ? 'Enviando...' : 'Enviar Mensagem →'}
+                    {isSubmitting ? "Enviando..." : "Enviar Mensagem →"}
                   </button>
                 </form>
               </>
@@ -253,31 +230,31 @@ export function ContactForm() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 /* ── helpers ── */
 
 function inputCls(hasError: boolean) {
   return [
-    'w-full rounded border px-3 py-2.5 text-[0.88rem] outline-none transition-colors',
-    'bg-[var(--lcnv-cream)] text-[var(--lcnv-deep)] placeholder:text-[var(--lcnv-teal-pale)]',
+    "w-full rounded border px-3 py-2.5 text-[0.88rem] outline-none transition-colors",
+    "bg-[var(--lcnv-cream)] text-[var(--lcnv-deep)] placeholder:text-[var(--lcnv-teal-pale)]",
     hasError
-      ? 'border-red-400 focus:border-red-500'
-      : 'border-[var(--lcnv-teal-pale)] focus:border-[var(--lcnv-teal)]',
-  ].join(' ')
+      ? "border-red-400 focus:border-red-500"
+      : "border-[var(--lcnv-teal-pale)] focus:border-[var(--lcnv-teal)]",
+  ].join(" ");
 }
 
 function Field({
   label,
   error,
   children,
-  className = '',
+  className = "",
 }: {
-  label: string
-  error?: string
-  children: React.ReactNode
-  className?: string
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <div className={className}>
@@ -285,9 +262,7 @@ function Field({
         {label}
       </label>
       {children}
-      {error && (
-        <p className="mt-1 text-[0.72rem] text-red-500">{error}</p>
-      )}
+      {error && <p className="mt-1 text-[0.72rem] text-red-500">{error}</p>}
     </div>
-  )
+  );
 }

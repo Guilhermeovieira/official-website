@@ -1,12 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { WA_NUMBER, WA_MESSAGE } from '@/lib/companyInfo'
 
 /* Número do WhatsApp — troque pelo número real da LCNV */
-const WA_NUMBER = '5511916271334'
-const WA_MESSAGE = encodeURIComponent(
-  'Olá! Gostaria de saber mais sobre os serviços de contabilidade.'
-)
+
 
 export function WhatsAppButton() {
   const [visible, setVisible] = useState(false)

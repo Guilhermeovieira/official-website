@@ -1,26 +1,7 @@
 import Image from 'next/image'
+import { footerLinks } from '@/lib/companyInfo'
 
-const footerLinks = {
-  Serviços: [
-    'Abertura de Empresa',
-    'Contabilidade Mensal',
-    'Planejamento Tributário',
-    'Folha de Pagamento',
-    'Consultoria',
-  ],
-  Empresa: [
-    'Sobre Nós',
-    'Nossa Equipe',
-    'Blog Contábil',
-    'Casos de Sucesso',
-    'Carreiras',
-  ],
-  Contato: [
-    '(11) 99999-0000',
-    'contato@lcnv.com.br',
-    'São Paulo, SP',
-  ],
-}
+
 
 export function Footer() {
   return (

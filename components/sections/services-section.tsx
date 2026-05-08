@@ -7,58 +7,9 @@ import {
   Package,
 } from 'lucide-react'
 import { type LucideIcon } from 'lucide-react'
+import { servicesSection } from '@/lib/companyInfo'
+import type { Service } from '@/types'
 
-interface Service {
-  num: string
-  icon: LucideIcon
-  title: string
-  description: string
-}
-
-const services: Service[] = [
-  {
-    num: '01',
-    icon: Shield,
-    title: 'Abertura de Empresas',
-    description:
-      'MEI, ME, LTDA ou SA — abrimos sua empresa com agilidade e no regime tributário mais vantajoso para o seu modelo de negócio.',
-  },
-  {
-    num: '02',
-    icon: FileText,
-    title: 'Contabilidade Mensal',
-    description:
-      'Escrituração contábil, balanços, DRE e relatórios gerenciais entregues mensalmente com clareza e precisão.',
-  },
-  {
-    num: '03',
-    icon: Star,
-    title: 'Planejamento Tributário',
-    description:
-      'Redução legal da carga tributária com análise do regime mais adequado — Simples Nacional, Lucro Presumido ou Real.',
-  },
-  {
-    num: '04',
-    icon: Users,
-    title: 'Folha de Pagamento',
-    description:
-      'Processamento da folha, encargos trabalhistas, FGTS, e-Social e toda a gestão de RH com compliance total.',
-  },
-  {
-    num: '05',
-    icon: Clock,
-    title: 'Obrigações Acessórias',
-    description:
-      'SPED, ECF, ECD, DEFIS e todas as declarações fiscais entregues no prazo, sem multas ou complicações.',
-  },
-  {
-    num: '06',
-    icon: Package,
-    title: 'Consultoria Empresarial',
-    description:
-      'Análise financeira, planejamento estratégico e suporte para decisões de crescimento com visão contábil e de negócios.',
-  },
-]
 
 export function ServicesSection() {
   return (
@@ -89,7 +40,7 @@ export function ServicesSection() {
         <div
           className="grid grid-cols-1 gap-px bg-[var(--lcnv-teal-pale)] sm:grid-cols-2 lg:grid-cols-3"
         >
-          {services.map((service) => (
+          {servicesSection.map((service) => (
             <ServiceCard key={service.num} {...service} />
           ))}
         </div>
