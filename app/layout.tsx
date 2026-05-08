@@ -1,54 +1,78 @@
-import type { Metadata } from 'next'
-import { Playfair_Display, DM_Sans } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type { Metadata } from "next";
+import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
 /*
  * Playfair Display — usada em headings (h1, h2, títulos de cards)
  * Carregamos os pesos e itálico necessários para o design
  */
 const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '700', '900'],
-  style: ['normal', 'italic'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 /*
  * DM Sans — fonte do corpo, labels, navegação
  * Leve e legível em qualquer tamanho
  */
 const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: 'LCNV | Contabilidade',
+  title: "LCNV | Contabilidade",
   description:
-    'Escritório de contabilidade especializado em abertura de empresas, consultoria fiscal e planejamento tributário. Atendimento personalizado e tecnologia integrada.',
+    "Escritório de contabilidade especializado em abertura de empresas, consultoria fiscal e planejamento tributário. Atendimento personalizado e tecnologia integrada.",
   keywords: [
-    'contabilidade',
-    'abertura de empresa',
-    'consultoria fiscal',
-    'planejamento tributário',
-    'contador',
-    'MEI',
-    'São Paulo',
+    "contabilidade",
+    "abertura de empresa",
+    "consultoria fiscal",
+    "planejamento tributário",
+    "contador",
+    "MEI",
+    "São Paulo",
   ],
   icons: {
-    icon: '/icon.png',
-    apple: '/apple-icon.png',
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
   },
-}
- 
+  openGraph: {
+    title: "LCNV Contabilidade",
+    description:
+      "Contabilidade estratégica para o seu negócio. Abertura de empresas, planejamento tributário e muito mais.",
+    url: "https://lcnv.com.br",
+    siteName: "LCNV Contabilidade",
+    locale: "pt_BR",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image.png", 
+        width: 1200,
+        height: 630,
+        alt: "LCNV Contabilidade",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "LCNV Contabilidade",
+    description: "Contabilidade estratégica para o seu negócio.",
+    images: ["/og-image.jpg"],
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html
@@ -57,8 +81,8 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased">
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
-  )
+  );
 }
